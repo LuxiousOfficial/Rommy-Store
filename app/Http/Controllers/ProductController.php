@@ -11,6 +11,7 @@ use App\Interfaces\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class ProductController extends Controller implements HasMiddleware
@@ -23,12 +24,14 @@ class ProductController extends Controller implements HasMiddleware
 
     public static function middleware()
     {
-        return [
-            new Middleware(PermissionMiddleware::using(['product-list|product-create|product-edit|product-delete']), only: ['index', 'getAllPaginated', 'show', 'showBySlug']),
-            new Middleware(PermissionMiddleware::using(['product-create']), only: ['store']),
-            new Middleware(PermissionMiddleware::using(['product-edit']), only: ['update']),
-            new Middleware(PermissionMiddleware::using(['product-delete']), only: ['destroy']),
-        ];
+        if(Auth::check()) {
+            return [
+                new Middleware(PermissionMiddleware::using(['product-list|product-create|product-edit|product-delete']), only: ['index', 'getAllPaginated', 'show', 'showBySlug']),
+                new Middleware(PermissionMiddleware::using(['product-create']), only: ['store']),
+                new Middleware(PermissionMiddleware::using(['product-edit']), only: ['update']),
+                new Middleware(PermissionMiddleware::using(['product-delete']), only: ['destroy']),
+            ];
+        }
     }
 
     /**
@@ -41,6 +44,7 @@ class ProductController extends Controller implements HasMiddleware
                 $request->search,
                 $request->product_category_id,
                 $request->limit,
+                $request->random,
                 true
             );
             return ResponseHelper::jsonResponse(true, 'Data product has been successfully retrieved', ProductResource::collection($products), 200);

@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class ProductRepository implements ProductRepositoryInterface
 
 {
-    public function getAll(?string $search, ?string $productCategoryId, ?int $limit, bool $execute)
+    public function getAll(?string $search, ?string $productCategoryId, ?int $limit, ?bool $random, bool $execute)
     {
         $query = Product::where(function ($query) use ($search, $productCategoryId) {
             if($search) {
@@ -27,6 +27,10 @@ class ProductRepository implements ProductRepositoryInterface
             $query->take($limit);
         }
 
+        if($random) {
+            $query->inRandomOrder();
+        }
+
         if($execute) {
             return $query->get();
         }
@@ -40,6 +44,7 @@ class ProductRepository implements ProductRepositoryInterface
             $search,
             $productCategoryId,
             null,
+            false,
             false
         );
 

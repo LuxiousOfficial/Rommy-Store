@@ -15,7 +15,8 @@ class ProductReviewResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'transaction_id' => new TransactionResource($this->transaction),
+            'transaction' => new TransactionResource($this->transaction),
+            'product' => new ProductResource($this->product),
             'rating' => $this->rating,
             'review' => $this->review
         ];

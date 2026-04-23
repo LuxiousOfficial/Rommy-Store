@@ -151,8 +151,7 @@ class TransactionRepository implements TransactionRepositoryInterface
 
         $response = Http::withHeaders([
             'key' => 'LXWmJ3LE0bf53b3cac7c4d1dJt2OKk9w',
-        // ])->asForm()->post('https://rajaongkir.komerce.id/api/v1/calculate/domestic-cost', [
-        ])->asForm()->post('https://rajaongkir.komerce.id/api/v1/destination/domestic-destination', [
+        ])->asForm()->post('https://rajaongkir.komerce.id/api/v1/calculate/domestic-cost', [
             'origin' => $origin,
             'destination' => $destination,
             'weight' => $weight,

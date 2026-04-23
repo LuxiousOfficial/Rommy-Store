@@ -16,7 +16,7 @@ class WithdrawalResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'store_ballance_id' => new StoreBallanceResource($this->storeBallance),
+            'store_ballance' => new StoreBallanceResource($this->storeBallance),
             'amount' => (float)(string)$this->amount,
             'bank_account_name' => $this->bank_account_name,
             'bank_account_number' => $this->bank_account_number,

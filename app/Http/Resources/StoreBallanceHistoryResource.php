@@ -16,7 +16,7 @@ class StoreBallanceHistoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'store_ballance_id' => new StoreBallanceResource($this->storeBallance),
+            'store_ballance' => new StoreBallanceResource($this->storeBallance),
             'type' => $this->type,
             'reference_id' => $this->reference_id,
             'reference_type' => $this->reference_type,

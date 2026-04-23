@@ -16,8 +16,9 @@ class StoreResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => new UserResource($this->user),
+            'user' => new UserResource($this->user),
             'name' => $this->name,
+            'username' => $this->username,
             'logo' => asset('storage/'.$this->logo),
             'about' => $this->about,
             'phone' => $this->phone,
@@ -25,7 +26,8 @@ class StoreResource extends JsonResource
             'city' => $this->city,
             'address' => $this->address,
             'postal_code' => $this->postal_code,
-            'is_verified' => $this->is_verified
+            'is_verified' => $this->is_verified,
+            'product_count' => $this->products->count()
         ];
     }
 }
