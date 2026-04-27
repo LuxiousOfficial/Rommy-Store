@@ -34,7 +34,7 @@ class AuthController extends Controller
             $user = $this->authRepository->login($request);
             return ResponseHelper::jsonResponse(true, 'Login successfully', new UserResource($user), 200);
         } catch (\Exception $e) {
-            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, $e->getCode());
         }
     }
 

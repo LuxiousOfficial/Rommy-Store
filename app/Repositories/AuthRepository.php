@@ -43,7 +43,7 @@ class AuthRepository implements AuthRepositoryInterface
         DB::beginTransaction();
         try {
             if(!Auth::guard('web')->attempt($data)) {
-                throw new Exception('Unauthorized');
+                throw new Exception('Unauthorized', 401);
             }
 
             $user = Auth::user();
@@ -52,7 +52,7 @@ class AuthRepository implements AuthRepositoryInterface
             return $user;
         } catch (\Exception $e) {
             DB::rollBack();
-            throw new Exception($e->getMessage());
+            throw new Exception($e->getMessage(), $e->getCode());
         }
     }
 

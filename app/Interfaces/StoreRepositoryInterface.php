@@ -10,6 +10,8 @@ interface StoreRepositoryInterface
 
     public function getById(string $id);
 
+    public function getByUsername(string $username);
+
     public function create(array $data);
 
     public function updateVerifiedStatus(string $id, bool $isVerified);

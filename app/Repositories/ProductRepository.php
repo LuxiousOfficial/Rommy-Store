@@ -11,11 +11,15 @@ use Illuminate\Support\Str;
 class ProductRepository implements ProductRepositoryInterface
 
 {
-    public function getAll(?string $search, ?string $productCategoryId, ?int $limit, ?bool $random, bool $execute)
+    public function getAll(?string $search, ?string $storeId, ?string $productCategoryId, ?int $limit, ?bool $random, bool $execute)
     {
-        $query = Product::where(function ($query) use ($search, $productCategoryId) {
+        $query = Product::where(function ($query) use ($search, $storeId, $productCategoryId) {
             if($search) {
                 $query->search($search);
+            }
+
+            if($storeId) {
+                $query->where('store_id', $storeId);
             }
 
             if($productCategoryId) {
@@ -38,10 +42,11 @@ class ProductRepository implements ProductRepositoryInterface
         return $query;
     }
 
-    public function getAllPaginated(?string $search, ?string $productCategoryId, ?int $rowPerPage)
+    public function getAllPaginated(?string $search, ?string $storeId, ?string $productCategoryId, ?int $rowPerPage)
     {
         $query = $this->getAll(
             $search,
+            $storeId,
             $productCategoryId,
             null,
             false,

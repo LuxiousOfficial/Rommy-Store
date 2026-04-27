@@ -42,6 +42,7 @@ class ProductController extends Controller implements HasMiddleware
         try {
             $products = $this->productRepository->getAll(
                 $request->search,
+                $request->store_id,
                 $request->product_category_id,
                 $request->limit,
                 $request->random,
@@ -57,6 +58,7 @@ class ProductController extends Controller implements HasMiddleware
     {
         $request = $request->validate([
             'search' => 'nullable|string',
+            'store_id' => 'nullable|exists:stores,id',
             'product_category_id' => 'nullable|exists:product_categories,id',
             'row_per_page' => 'required|integer'
         ]);
@@ -64,6 +66,7 @@ class ProductController extends Controller implements HasMiddleware
         try {
             $products = $this->productRepository->getAllPaginated(
                 $request['search'] ?? null,
+                $request['store_id'] ?? null,
                 $request['product_category_id'] ?? null,
                 $request['row_per_page'],
             );
