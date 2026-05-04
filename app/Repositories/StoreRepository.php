@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class StoreRepository implements StoreRepositoryInterface
 {
-   public function getAll(?string $search, ?bool $isVerified, ?int $limit, bool $execute)
+   public function getAll(?string $search, ?bool $isVerified, ?int $limit, ?bool $random = false, bool $execute)
    {
     $query = Store::where(function ($query) use ($search, $isVerified) {
         if($search) {
@@ -21,6 +21,12 @@ class StoreRepository implements StoreRepositoryInterface
             $query->where('is_verified', $isVerified);
        }
     });
+
+    $query->orderBy('created_at', 'desc');
+
+    if($random) {
+        $query->inRandomOrder();
+    }
 
     if($limit) {
         $query->take($limit);
@@ -39,6 +45,7 @@ class StoreRepository implements StoreRepositoryInterface
             $search,
             $isVerified,
             null,
+            false,
             false
         );
 
@@ -54,6 +61,12 @@ class StoreRepository implements StoreRepositoryInterface
     public function getByUsername(string $username)
     {
         $query = Store::where('username', $username);
+        return $query->first();
+    }
+
+    public function getByUserId(string $userId)
+    {
+        $query = Store::where('user_id', $userId);
         return $query->first();
     }
 

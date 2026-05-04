@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+// use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AuthStoreRequest extends FormRequest
@@ -16,9 +16,10 @@ class AuthStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email:dns|unique:users',
+            'profile_picture' => 'required|image|mimes:png,jpg',
+            'email' => 'required|email|unique:users',
             'password' => 'required',
-            'role' => 'required|in:buyer,store',
+            'role' => 'required|in:store,buyer',
         ];
     }
 }

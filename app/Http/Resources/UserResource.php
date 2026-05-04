@@ -16,6 +16,7 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'profile_picture' => asset('storage/'. $this->profile_picture),
             'name' => $this->name,
             'email' => $this->email,
             'role' => $this->roles->first()->name,

@@ -11,7 +11,6 @@ class Buyer extends Model
     use UUID, HasFactory;
     protected $fillable = [
         'user_id',
-        'profile_picture',
         'phone_number'
     ];
 

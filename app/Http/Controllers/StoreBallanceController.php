@@ -9,6 +9,7 @@ use App\Interfaces\StoreBallanceRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class StoreBallanceController extends Controller implements HasMiddleware
@@ -21,9 +22,11 @@ class StoreBallanceController extends Controller implements HasMiddleware
 
     public static function middleware()
     {
+       if(Auth::check()) {
         return [
             new Middleware(PermissionMiddleware::using(['store-ballance-list']), only: ['index', 'getAllPaginated', 'show']),
         ];
+       }
     }
 
     /**

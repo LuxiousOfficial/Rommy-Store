@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::apiResource('store', StoreController::class);
     Route::get('store/all/paginated', [StoreController::class, 'getAllPaginated']);
     Route::put('store/{id}/verified', [StoreController::class, 'updateVerifiedStatus']);
+    Route::get('store/user/{store}', [StoreController::class, 'showByUserId']);
 
     Route::apiResource('store-ballance', StoreBallanceController::class)->except('store', 'update', 'delete');
     Route::get('store-ballance/all/paginated', [StoreBallanceController::class, 'getAllPaginated']);
@@ -64,8 +65,8 @@ Route::get('product/slug/{slug}', [ProductController::class, 'showBySlug']);
 Route::get('store', [StoreController::class, 'index']);
 Route::get('store/username/{store}', [StoreController::class, 'showByUsername']);
 
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 
 

@@ -60,7 +60,8 @@ class ProductController extends Controller implements HasMiddleware
             'search' => 'nullable|string',
             'store_id' => 'nullable|exists:stores,id',
             'product_category_id' => 'nullable|exists:product_categories,id',
-            'row_per_page' => 'required|integer'
+            'row_per_page' => 'required|integer',
+            'random' => 'nullable|boolean'
         ]);
 
         try {
@@ -69,6 +70,7 @@ class ProductController extends Controller implements HasMiddleware
                 $request['store_id'] ?? null,
                 $request['product_category_id'] ?? null,
                 $request['row_per_page'],
+                $request['random'] ?? null,
             );
             return ResponseHelper::jsonResponse(true, 'Data product category has been successfully retrieved', PaginateResource::make($products, ProductResource::class), 200);
         } catch (\Exception $e) {

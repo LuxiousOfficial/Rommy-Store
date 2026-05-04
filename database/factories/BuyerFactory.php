@@ -26,10 +26,10 @@ class BuyerFactory extends Factory
             'user_id' => User::factory()->hasAttached(
                 config('permission.models.role')::where('name', 'buyer')->first(), [], 'roles'
             ),
-            'profile_picture' => $imageHelper->storeAndResizeImage(
-                $imageHelper->createDummyImageWithTextSizeAndPosition(
-                    250, 250, 'center', 'center', 'random', 'medium'), 'store', 250, 250
-                ),
+            // 'profile_picture' => $imageHelper->storeAndResizeImage(
+            //     $imageHelper->createDummyImageWithTextSizeAndPosition(
+            //         250, 250, 'center', 'center', 'random', 'medium'), 'store', 250, 250
+            //     ),
             'phone_number' => $this->faker->phoneNumber()
         ];
     }

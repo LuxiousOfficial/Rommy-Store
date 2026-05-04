@@ -4,13 +4,15 @@ namespace App\Interfaces;
 
 interface StoreRepositoryInterface
 {
-    public function getAll(?string $search, ?bool $isVerified, ?int $limit, bool $execute);
+    public function getAll(?string $search, ?bool $isVerified, ?int $limit, ?bool $random, bool $execute);
 
     public function getAllPaginated(?string $search, ?bool $isVerified, ?int $rowPerPage);
 
     public function getById(string $id);
 
     public function getByUsername(string $username);
+
+    public function getByUserId(string $userId);
 
     public function create(array $data);
 

@@ -21,6 +21,10 @@ class TransactionRepository implements TransactionRepositoryInterface
             }
         });
 
+        if(auth()->user()->hasRole('store')) {
+            $query->where('store_id', auth()->user()->store->id ?? null);
+        }
+
         if($limit) {
             $query->take($limit);
         }
@@ -45,7 +49,7 @@ class TransactionRepository implements TransactionRepositoryInterface
 
     public function getById(string $id)
     {
-        $query = Transaction::where('id', $id);
+        $query = Transaction::where('id', $id)->with('transactionDetails.product.productImages');
         return $query->first();
     }
 
@@ -109,7 +113,7 @@ class TransactionRepository implements TransactionRepositoryInterface
             $params = array(
                'transaction_details' => array(
                     'order_id' => $transaction->code,
-                    'gross_amount' => $transaction->grand_total
+                    'gross_amount' => round($transaction->grand_total)
                ),
                'customer_details' => array(
                     'first_name' => $transaction->buyer->name,

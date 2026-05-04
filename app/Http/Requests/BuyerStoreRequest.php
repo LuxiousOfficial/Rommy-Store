@@ -16,7 +16,6 @@ class BuyerStoreRequest extends FormRequest
     {
         return [
             'user_id' => 'required|exists:users,id',
-            'profile_picture' => 'required|image|mimes:png,jpg',
             'phone_number' => 'required|string'
         ];
     }

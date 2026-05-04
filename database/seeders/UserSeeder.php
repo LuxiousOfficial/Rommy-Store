@@ -19,6 +19,20 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('vizleon1999'),
         ])->assignRole('admin');
+
+        $store = User::create([
+            'name' => 'Rommy Ardiansyah',
+            'email' => 'rommyardiansyah1@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ])->assignRole('store');
+
+        $buyer = User::create([
+            'name' => 'Rommy Ardiansyah',
+            'email' => 'rommyardiansyah2@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ])->assignRole('buyer');
         
         UserFactory::new()->count(10)->create();
     }

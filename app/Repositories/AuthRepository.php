@@ -15,6 +15,7 @@ class AuthRepository implements AuthRepositoryInterface
         DB::beginTransaction();
         try {
             $user = new User;
+            $user->profile_picture = $data['profile_picture']->store('assets/user', 'public');
             $user->name = $data['name'];
             $user->email = $data['email'];
             $user->password = bcrypt($data['password']);
@@ -23,7 +24,6 @@ class AuthRepository implements AuthRepositoryInterface
 
             if($data['role'] == 'buyer') {
                 $user->buyer()->create([
-                    'profile_picture' => null,
                     'phone_number' => null
                 ]);
             }

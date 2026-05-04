@@ -44,6 +44,7 @@ class StoreController extends Controller implements HasMiddleware
                 $request->search,
                 $request->is_verified,
                 $request->limit,
+                $request->random,
                 true
             );
             return ResponseHelper::jsonResponse(true, 'Data store has been successfully retrieved', StoreResource::collection($stores), 200);
@@ -106,6 +107,19 @@ class StoreController extends Controller implements HasMiddleware
     {
         try {
             $store = $this->storeRepository->getByUsername($username);
+            if(!$store) {
+                return ResponseHelper::jsonResponse(true, 'Data store not found', null, 404);
+            }
+            return ResponseHelper::jsonResponse(true, 'Data store has been found', new StoreResource($store), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
+    }
+
+    public function showByUserId(string $userId)
+    {
+        try {
+            $store = $this->storeRepository->getByUserId($userId);
             if(!$store) {
                 return ResponseHelper::jsonResponse(true, 'Data store not found', null, 404);
             }

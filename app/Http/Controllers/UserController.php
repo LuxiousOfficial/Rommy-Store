@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
-// use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\PaginateResource;
@@ -12,6 +11,7 @@ use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class UserController extends Controller implements HasMiddleware
@@ -24,12 +24,14 @@ class UserController extends Controller implements HasMiddleware
 
     public static function middleware()
     {
-        return [
-            new Middleware(PermissionMiddleware::using(['user-list|user-create|user-edit|user-delete']), only: ['index', 'getAllPaginated', 'show']),
-            new Middleware(PermissionMiddleware::using(['user-create']), only: ['store']),
-            new Middleware(PermissionMiddleware::using(['user-edit']), only: ['update']),
-            new Middleware(PermissionMiddleware::using(['user-delete']), only: ['destroy']),
-        ];
+        if(Auth::check()) {
+            return [
+                new Middleware(PermissionMiddleware::using(['user-list|user-create|user-edit|user-delete']), only: ['index', 'getAllPaginated', 'show']),
+                new Middleware(PermissionMiddleware::using(['user-create']), only: ['store']),
+                new Middleware(PermissionMiddleware::using(['user-edit']), only: ['update']),
+                new Middleware(PermissionMiddleware::using(['user-delete']), only: ['destroy']),
+            ];
+        }
     }
 
     /**

@@ -23,6 +23,7 @@ class WithdrawalResource extends JsonResource
             'bank_name' => $this->bank_name,
             'proof' => asset('storage/' . $this->proof),
             'status' => $this->status,
+            'created_at' => $this->created_at
         ];
     }
 }
