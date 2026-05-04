@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use App\Traits\UUID;
+// use App\Traits\UUID;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductReview extends Model
 {
-    use UUID;
+    use HasUuids;
     protected $fillable = [
         'transaction_id',
         'product_id',

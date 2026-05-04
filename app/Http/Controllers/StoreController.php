@@ -121,7 +121,7 @@ class StoreController extends Controller implements HasMiddleware
         try {
             $store = $this->storeRepository->getByUserId($userId);
             if(!$store) {
-                return ResponseHelper::jsonResponse(true, 'Data store not found', null, 404);
+                return ResponseHelper::jsonResponse(true, 'store not found', null, 200);
             }
             return ResponseHelper::jsonResponse(true, 'Data store has been found', new StoreResource($store), 200);
         } catch (\Exception $e) {
