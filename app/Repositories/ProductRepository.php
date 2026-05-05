@@ -39,7 +39,7 @@ class ProductRepository implements ProductRepositoryInterface
             return $query->get();
         }
 
-        if(auth()->user()->hasRole('store')) {
+        if(auth()->check() && auth()->user()->hasRole('store')) {
             $query->where('store_id', auth()->user()->store->id ?? null);
         }
 
