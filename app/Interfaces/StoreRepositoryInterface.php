@@ -12,7 +12,7 @@ interface StoreRepositoryInterface
 
     public function getByUsername(string $username);
 
-    public function getByUserId(string $userId);
+    public function getByUser();
 
     public function create(array $data);
 

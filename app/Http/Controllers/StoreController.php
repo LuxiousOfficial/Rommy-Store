@@ -116,10 +116,10 @@ class StoreController extends Controller implements HasMiddleware
         }
     }
 
-    public function showByUserId(string $userId)
+    public function showByUser()
     {
         try {
-            $store = $this->storeRepository->getByUserId($userId);
+            $store = $this->storeRepository->getByUser();
             if(!$store) {
                 return ResponseHelper::jsonResponse(true, 'store not found', null, 200);
             }

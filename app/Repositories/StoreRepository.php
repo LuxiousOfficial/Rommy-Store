@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\StoreRepositoryInterface;
 use App\Models\Store;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -64,9 +65,10 @@ class StoreRepository implements StoreRepositoryInterface
         return $query->first();
     }
 
-    public function getByUserId(string $userId)
+    public function getByUser()
     {
-        $query = Store::where('user_id', $userId);
+        $user = Auth::user();
+        $query = Store::where('user_id', $user->id);
         return $query->first();
     }
 
