@@ -10,6 +10,8 @@ interface StoreBallanceRepositoryInterface
 
     public function getById(string $id);
 
+    public function getByStore();
+
     public function creadit(string $id, string $amount);
 
     public function debit(string $id, string $amount);

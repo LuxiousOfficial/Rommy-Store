@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\StoreBallanceRepositoryInterface;
 use App\Models\StoreBallance;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StoreBallanceRepository implements StoreBallanceRepositoryInterface
@@ -42,6 +43,13 @@ class StoreBallanceRepository implements StoreBallanceRepositoryInterface
     public function getById(string $id)
     {
         $query = StoreBallance::where('id', $id)->with(['storeBallanceHistories']);
+        return $query->first();
+    }
+
+    public function getByStore()
+    {
+        $user = Auth::user();
+        $query = StoreBallance::where('store_id', $user->store->id);
         return $query->first();
     }
 

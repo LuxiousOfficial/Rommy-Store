@@ -79,4 +79,17 @@ class StoreBallanceController extends Controller implements HasMiddleware
             return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
         }
     }
+
+    public function showByStore()
+    {
+        try {
+            $store = $this->storeBallanceRepository->getByStore();
+            if(!$store) {
+                return ResponseHelper::jsonResponse(true, 'E-wallet not found', null, 200);
+            }
+            return ResponseHelper::jsonResponse(true, 'Data E-Wallet has been found', new StoreBallanceResource($store), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
+    }
 }

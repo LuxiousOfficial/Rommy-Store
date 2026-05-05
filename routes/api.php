@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::apiResource('store-ballance-history', StoreBallanceHistoryController::class)->except('store', 'update', 'delete');
     Route::get('store-ballance-history/all/paginated', [StoreBallanceHistoryController::class, 'getAllPaginated']);
+    Route::get('my-store-ballance', [StoreBallanceController::class, 'showByStore']);
 
     Route::apiResource('withdrawal', WithdrawalController::class)->except('update', 'destroy');
     Route::get('withdrawal/all/paginated', [WithdrawalController::class, 'getAllPaginated']);
