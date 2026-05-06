@@ -11,7 +11,6 @@ use App\Interfaces\WithdrawalRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
@@ -25,14 +24,12 @@ class WithdrawalController extends Controller implements HasMiddleware
 
     public static function middleware()
     {
-       if(Auth::check()) {
         return [
             new Middleware(PermissionMiddleware::using(['withdrawal-list|withdrawal-create|withdrawal-edit|withdrawal-delete']), only: ['index', 'getAllPaginated', 'show', 'approve']),
             new Middleware(PermissionMiddleware::using(['withdrawal-create']), only: ['store']),
             new Middleware(PermissionMiddleware::using(['withdrawal-edit']), only: ['update', 'approve']),
             new Middleware(PermissionMiddleware::using(['withdrawal-delete']), only: ['destroy']),
         ];
-       }
     }
 
     /**

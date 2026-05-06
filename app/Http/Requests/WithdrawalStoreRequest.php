@@ -18,8 +18,11 @@ class WithdrawalStoreRequest extends FormRequest
     {
         return [
             'store_ballance_id' => 'required|exists:store_ballances,id',
-            'amount' => ['required|min:50000',
-            function ($attribute, $value, $fail) {
+            'amount' => [
+                'required',
+                'numeric',
+                'min:50000',
+                function ($attribute, $value, $fail) {
                 $storeBallance = StoreBallance::find($this->store_ballance_id);
                 if ($storeBallance->balance < $value) {
                     $fail('your balance is not enough');
@@ -28,7 +31,7 @@ class WithdrawalStoreRequest extends FormRequest
             ],
             'bank_account_name' => 'required|string',
             'bank_account_number' => 'required|string',
-            'bank_name' => 'required|string|in:BRI,BNI,BCA,Mandiri'
+            'bank_name' => 'required|string|in:bri,bni,bca,mandiri'
         ];
     }
 }

@@ -26,6 +26,8 @@ class StoreBallanceRepository implements StoreBallanceRepositoryInterface
             return $query->get();
         }
 
+        $query->orderBy('created_at', 'desc');
+
         return $query;
     }
 

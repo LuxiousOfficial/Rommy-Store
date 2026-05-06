@@ -23,8 +23,6 @@ class StoreRepository implements StoreRepositoryInterface
        }
     });
 
-    $query->orderBy('created_at', 'desc');
-
     if($random) {
         $query->inRandomOrder();
     }
@@ -36,6 +34,8 @@ class StoreRepository implements StoreRepositoryInterface
     if($execute) {
         return $query->get();
     }
+
+    $query->orderBy('created_at', 'desc');
 
     return $query;
    }
