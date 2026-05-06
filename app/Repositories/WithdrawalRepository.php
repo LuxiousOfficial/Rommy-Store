@@ -26,6 +26,8 @@ class WithdrawalRepository implements WithdrawalRepositoryInterface
             return $query->get();
         }
 
+        $query->orderBy('created_at', 'desc');
+
         if (auth()->check() && auth()->user()->hasRole('store')) {
             $query->whereHas('storeBallance', function ($query) {
                 $query->whereHas('store', function ($query) {
