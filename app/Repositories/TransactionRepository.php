@@ -64,7 +64,7 @@ class TransactionRepository implements TransactionRepositoryInterface
         DB::beginTransaction();
         try {
             $transaction = new Transaction;
-            $transaction->code = 'ROMMY' . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+            $transaction->code = 'TRX-' . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
             $transaction->buyer_id = $data['buyer_id'];
             $transaction->store_id = $data['store_id'];
             $transaction->address = $data['address'];
